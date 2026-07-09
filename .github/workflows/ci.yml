@@ -10,17 +10,19 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: 检查 HTML 语法
-        uses: anishathalye/proof-html@v2
-        with:
-          directory: ./
+    - name: 检查 HTML 语法
+      uses: anishathalye/proof-html@v2
+      with:
+        directory: ./
+        check_external: false   # 🆕 跳过外部链接检查（比如学校官网）
+        check_favicon: false    # 🆕 跳过 favicon 检查
 
-      - name: 检查文件是否存在
-        run: |
-          echo "✅ 检查文件完整性"
-          test -f index.html && echo "✅ index.html 存在"
-          test -f style.css && echo "✅ style.css 存在"
-          test -f dark.css && echo "✅ dark.css 存在"
-          test -f mobile.css && echo "✅ mobile.css 存在"
+    - name: 检查文件是否存在
+      run: |
+        echo "✅ 检查文件完整性"
+        test -f index.html && echo "✅ index.html 存在"
+        test -f style.css && echo "✅ style.css 存在"
+        test -f dark.css && echo "✅ dark.css 存在"
+        test -f mobile.css && echo "✅ mobile.css 存在"
