@@ -4,183 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>团队主页 - 开源协作</title>
-    <!-- 引入样式文件 -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="dark.css" id="theme-style">
     <link rel="stylesheet" href="mobile.css">
 </head>
 <body>
 
-    <!-- ===== 导航栏 ===== -->
     <nav style="display: flex; justify-content: center; gap: 2rem; padding: 0.8rem 1.2rem; margin-bottom: 1rem; background: #f8fafc; border-radius: 12px; max-width: 1200px; margin-left: auto; margin-right: auto;">
         <a href="./" style="color: #2563eb; text-decoration: none; font-weight: 500;">🏠 主页</a>
         <a href="bistu.html" style="color: #2563eb; text-decoration: none; font-weight: 500;">🏛️ 学校介绍</a>
     </nav>
 
-    <!-- ===== 暗色模式切换按钮 ===== -->
     <div style="text-align: center; margin-bottom: 10px;">
         <button id="themeToggle" style="padding: 8px 20px; border-radius: 20px; border: 1px solid #d0d7de; background: white; cursor: pointer; font-size: 0.9rem;">
             🌙 切换暗色模式
         </button>
     </div>
 
-    <!-- ===== 主内容容器：背景图片在底层，内容卡片在上层 ===== -->
     <div class="container" id="mainContainer">
-        <!-- 
-            这个 content-card 就是“虚化方块”，它会浮在背景图片上面。
-            class="content-card" 对应的样式我们会在 style.css 里定义。
-        -->
         <div class="content-card">
-            
-            <!-- 标题区域 -->
             <header>
                 <h1>🏛️ 欢迎访问我们的学校</h1>
                 <p>北京信息科技大学 · 当前网页基于 GitHub-Pages 部署</p>
             </header>
 
-            <!-- ===== 时钟 + 音频可视化区域 ===== -->
-            <!-- 这个区域会显示时间和跳动的条形 -->
             <div id="visualizer-container">
-                <!-- 显示数字时钟 -->
                 <div id="clock">00:00:00</div>
-                <!-- 放置音频跳动条 -->
-                <div id="bars">
-                    <!-- 我们用 JavaScript 动态生成 32 个小条，所以这里不需要写死 -->
-                </div>
+                <div id="bars"></div>
             </div>
 
-            <!-- 底部信息 -->
             <footer>
                 <p>✨ 通过 Pull Request 协作贡献 · v1.0.0</p>
             </footer>
+        </div>
+    </div>
 
-        </div> <!-- content-card 结束 -->
-    </div> <!-- container 结束 -->
-
-    <!-- ===== JavaScript：暗色模式切换 + 时钟 + 音频可视化 ===== -->
     <script>
-        // --------------------------------------------------------------
-        // 1. 暗色模式切换功能
-        // --------------------------------------------------------------
+        // 暗色模式
         const toggleBtn = document.getElementById('themeToggle');
         toggleBtn.addEventListener('click', function() {
             document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                toggleBtn.textContent = '☀️ 切换亮色模式';
-            } else {
-                toggleBtn.textContent = '🌙 切换暗色模式';
-            }
+            toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ 切换亮色模式' : '🌙 切换暗色模式';
         });
 
-        // --------------------------------------------------------------
-        // 2. 数字时钟功能
-        // --------------------------------------------------------------
+        // 时钟
         function updateClock() {
-            // 获取当前时间
             const now = new Date();
-            // 格式化为 时:分:秒 (24小时制)
-            const timeString = now.toLocaleTimeString('zh-CN', { hour12: false });
-            // 找到 id 为 clock 的元素，把时间放进去
-            document.getElementById('clock').textContent = timeString;
+            document.getElementById('clock').textContent = now.toLocaleTimeString('zh-CN', { hour12: false });
         }
-        // 每 1 秒更新一次时钟
         setInterval(updateClock, 1000);
-        // 页面加载时立即显示一次，避免空白
         updateClock();
 
-        // --------------------------------------------------------------
-        // 3. 音频可视化功能（核心部分）
-        // --------------------------------------------------------------
-        // 这个功能需要用户点击页面后才会启动（因为浏览器策略）
-        // 所以我们添加一个“点击页面任意位置启动”的监听
-
-        let audioContext = null;      // 音频上下文
-        let analyser = null;         // 分析器节点
-        let dataArray = null;        // 存储频率数据
-        let bars = [];              // 存储所有条形 DOM 元素
-        let animationId = null;      // 动画帧 ID
-        let isVisualizing = false;   // 是否正在可视化
-
-        // 获取放置条形的容器
+        // 音频可视化
         const barsContainer = document.getElementById('bars');
-
-        // 创建 32 个条形，并添加到容器中
         const BAR_COUNT = 32;
         for (let i = 0; i < BAR_COUNT; i++) {
             const bar = document.createElement('div');
-            bar.className = 'bar';   // 每个条形有 class="bar"
+            bar.className = 'bar';
             barsContainer.appendChild(bar);
-            bars.push(bar);
         }
 
-        // 这个函数负责启动音频捕获
-        function startAudioVisualization() {
-            // 如果已经启动，就不再重复启动
+        let audioContext, analyser, dataArray, bars = document.querySelectorAll('.bar');
+        let isVisualizing = false;
+
+        function startAudio() {
             if (isVisualizing) return;
-
-            // 创建 AudioContext（需要用户交互才能创建）
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-            // 创建分析器节点
             analyser = audioContext.createAnalyser();
-            // 设置 FFT 大小（决定了频率数据的精细度），必须是 2 的幂
             analyser.fftSize = 64;
-            // 获取频率数据数组的长度
-            const bufferLength = analyser.frequencyBinCount;
-            dataArray = new Uint8Array(bufferLength);
+            dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-            // --- 方法：使用 getUserMedia 捕获麦克风 ---
-            // 更酷的方式：捕获系统音频（需要额外库），但麦克风最容易实现
             navigator.mediaDevices.getUserMedia({ audio: true })
                 .then(function(stream) {
-                    // 将麦克风流连接到音频上下文
                     const source = audioContext.createMediaStreamSource(stream);
                     source.connect(analyser);
-                    // 启动可视化循环
-                    visualize();
                     isVisualizing = true;
-                    console.log('🎤 音频可视化已启动！');
+                    visualize();
                 })
                 .catch(function(err) {
-                    console.error('无法访问麦克风:', err);
-                    alert('需要允许使用麦克风才能看到音频跳动效果！');
+                    alert('请允许使用麦克风以体验音频跳动效果！');
                 });
         }
 
-        // 可视化循环函数
         function visualize() {
-            // 获取当前频率数据
+            if (!isVisualizing) return;
             analyser.getByteFrequencyData(dataArray);
-
-            // 更新每个条形的高度
             for (let i = 0; i < bars.length; i++) {
-                // dataArray[i] 的值在 0 ~ 255 之间
-                // 我们把它映射到 5px ~ 60px 的高度
                 const value = dataArray[i] || 0;
-                // 用 Math.max 确保最小高度为 5px，看起来更美观
-                const height = Math.max(5, value / 255 * 60);
-                bars[i].style.height = height + 'px';
+                bars[i].style.height = Math.max(5, value / 255 * 60) + 'px';
             }
-
-            // 请求下一帧动画
-            animationId = requestAnimationFrame(visualize);
+            requestAnimationFrame(visualize);
         }
 
-        // 点击页面任意位置启动音频可视化（因为浏览器要求必须由用户手势触发）
         document.body.addEventListener('click', function startOnClick() {
-            // 移除这个监听器，避免重复触发
             document.body.removeEventListener('click', startOnClick);
-            startAudioVisualization();
+            startAudio();
         });
-
-        // 提示用户点击
-        console.log('👆 点击页面任意位置，启动音频可视化！');
-        // 也可以显示一个简单提示（但为了简洁，只打印在控制台）
-
-        // --------------------------------------------------------------
-        // 额外：如果用户想停止，可以加一个停止按钮，但这里为了简单就不加了
-        // --------------------------------------------------------------
-
     </script>
 
 </body>
