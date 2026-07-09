@@ -16,3 +16,6 @@
 - HTML5
 - CSS3
 - GitHub Pages
+
+## 本地运行
+直接打开 index.html 即可预览。
