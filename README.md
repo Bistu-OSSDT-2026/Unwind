@@ -19,3 +19,10 @@
 
 ## 本地运行
 直接打开 index.html 即可预览。
+# Unwind‑pages项目
+该项目是静态网页项目，借助GitHub‑Pages进行部署。
+在线访问地址：等待Pages部署完成后填入生成链接
+## 项目文件说明
+- index.html：页面骨架
+- style.css：页面样式文件
+- LICENSE：MIT开源协议
