@@ -1,0 +1,31 @@
+name: CI 文件完整性检查
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 列出所有文件（调试用）
+        run: ls -la
+
+      - name: 检查必要文件是否存在
+        run: |
+          set -e
+          echo "🔍 开始检查项目文件..."
+          required_files=("index.html" "style.css" "dark.css" "mobile.css" "bistu.html" "README.md" "LICENSE")
+          for file in "${required_files[@]}"; do
+            if [ -f "$file" ]; then
+              echo "✅ $file 存在"
+            else
+              echo "❌ 缺少 $file"
+              exit 1
+            fi
+          done
+          echo "🎉 所有核心文件检查通过！"
