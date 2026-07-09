@@ -1,0 +1,26 @@
+name: CI 自动检查
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 检查 HTML 语法
+        uses: anishathalye/proof-html@v2
+        with:
+          directory: ./
+
+      - name: 检查文件是否存在
+        run: |
+          echo "✅ 检查文件完整性"
+          test -f index.html && echo "✅ index.html 存在"
+          test -f style.css && echo "✅ style.css 存在"
+          test -f dark.css && echo "✅ dark.css 存在"
+          test -f mobile.css && echo "✅ mobile.css 存在"
