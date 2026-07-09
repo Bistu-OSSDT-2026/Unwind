@@ -22,3 +22,121 @@ p{
 body{
     padding:0 10px;
 }
+/* ============================================================
+   新增样式：背景容器 + 毛玻璃卡片 + 音频条形
+   ============================================================ */
+
+/* 主容器：背景图片铺满，并作为定位参考 */
+#mainContainer {
+    /* 背景图片 - 确认你的图片文件名是 bistu-campus.jpg */
+    background-image: url('bistu-campus.jpg');
+    background-size: cover;          /* 图片覆盖整个区域 */
+    background-position: center;     /* 图片居中 */
+    background-repeat: no-repeat;    /* 不重复 */
+    
+    /* 容器尺寸和内边距 */
+    min-height: 500px;              /* 最小高度，保证美观 */
+    padding: 2rem 1rem;
+    
+    /* 让里面的内容垂直居中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* 稍微圆润一点 */
+    border-radius: 16px;
+}
+
+/* ===== 毛玻璃卡片（虚化方块） ===== */
+.content-card {
+    /* 背景：半透明白色，让下面图片透出来一点 */
+    background: rgba(255, 255, 255, 0.2);
+    
+    /* ★ 核心：毛玻璃效果（虚化背景） */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* 兼容 Safari */
+    
+    /* 边框和阴影，增加立体感 */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    
+    /* 圆角、内边距、文字颜色 */
+    border-radius: 24px;
+    padding: 2.5rem 3rem;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    
+    /* 最大宽度，避免在大屏上太宽 */
+    max-width: 700px;
+    width: 100%;
+    
+    /* 文字居中 */
+    text-align: center;
+}
+
+/* 卡片内的标题和段落 */
+.content-card h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+.content-card header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+.content-card footer p {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* ===== 时钟 + 可视化容器 ===== */
+#visualizer-container {
+    margin: 1.5rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 时钟样式 */
+#clock {
+    font-size: 3.5rem;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    margin-bottom: 0.8rem;
+}
+
+/* ===== 音频条形容器 ===== */
+#bars {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 4px;           /* 条形之间的间距 */
+    height: 70px;       /* 容器高度固定，条形从底部往上长 */
+    padding: 0 10px;
+}
+
+/* 每个条形 */
+.bar {
+    width: 6px;                /* 条形宽度 */
+    background: linear-gradient(to top, #00d2ff, #3a7bd5); /* 漂亮的渐变蓝色 */
+    border-radius: 4px 4px 0 0; /* 顶部圆角 */
+    height: 5px;               /* 初始高度（会被 JS 覆盖） */
+    transition: height 0.05s;  /* 平滑过渡，让跳动更柔和 */
+    box-shadow: 0 0 6px rgba(0, 210, 255, 0.4);
+}
+
+/* ===== 暗色模式适配 ===== */
+body.dark-mode #mainContainer {
+    /* 暗色模式下可以加一层暗色遮罩，但因为我们有毛玻璃，可以保持 */
+}
+
+body.dark-mode .content-card {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .bar {
+    background: linear-gradient(to top, #f093fb, #f5576c); /* 暗色模式下换成粉色渐变 */
+}
