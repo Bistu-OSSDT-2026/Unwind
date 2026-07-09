@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北京信息科技大学 · Unwind</title>
+    <style>
+        /* ===== 全局样式 ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f4f8;
+            color: #1e293b;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        /* ===== 导航栏 ===== */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eef2f6;
+        }
+        .nav-bar .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .nav-bar .logo span { color: #2563eb; }
+        .nav-bar a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.3rem 1rem;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .nav-bar a:hover { background: #eff6ff; }
+
+        /* ===== 标题与校训 ===== */
+        .hero-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.2rem;
+        }
+        .hero-title .highlight { color: #1a56db; }
+        .subtitle {
+            color: #64748b;
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #1a56db;
+            padding-left: 1rem;
+        }
+        .motto-box {
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .motto-box .motto-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: 2px;
+        }
+        .motto-box .motto-source {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 0.2rem;
+        }
+
+        /* ===== 通用章节 ===== */
+        .section { margin-bottom: 2.2rem; }
+        .section h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #0f172a;
+        }
+        .section p { color: #334155; line-height: 1.8; }
+        .section ul {
+            padding-left: 1.4rem;
+            list-style-type: '▸ ';
+            color: #334155;
+        }
+        .section ul li::marker { color: #2563eb; }
+        .section ul li { margin-bottom: 0.3rem; }
+
+        /* ===== 信息卡片网格 ===== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 0.5rem 0;
+        }
+        .info-item {
+            background: #f8fafc;
+            padding: 1rem 1.2rem;
+            border-radius: 14px;
+            border: 1px solid #eef2f6;
+        }
+        .info-item .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #94a3b8;
+        }
+        .info-item .value {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        /* ===== 链接按钮 ===== */
+        .link-btn {
+            display: inline-block;
+            background: #1a56db;
+            color: white !important;
+            padding: 0.5rem 1.8rem;
+            border-radius: 10px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .link-btn:hover { background: #1e40af; }
+
+        /* ===== 页脚 ===== */
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            border-top: 1px solid #eef2f6;
+            padding-top: 1.5rem;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 600px) {
+            .container { padding: 1.5rem; }
+            .nav-bar { flex-wrap: wrap; gap: 0.5rem; }
+            .motto-box .motto-text { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== 导航栏 ===== -->
+    <div class="nav-bar">
+        <div class="logo">🌿 <span>Unwind</span></div>
+        <a href="./">← 返回主页</a>
+    </div>
+
+    <!-- ===== 标题 ===== -->
+    <h1 class="hero-title">🏛️ <span class="highlight">北京信息科技大学</span></h1>
+    <div class="subtitle">Beijing Information Science and Technology University · BISTU</div>
+
+    <!-- ===== 校训 ===== -->
+    <div class="motto-box">
+        <div class="motto-text">勤以为学 · 信以立身</div>
+        <div class="motto-source">—— 北京信息科技大学校训</div>
+    </div>
+
+    <!-- ===== 学校概况 ===== -->
+    <div class="section">
+        <h2>📖 学校概况</h2>
+        <p>
+            <strong>北京信息科技大学</strong> 是一所以工为主，工、管、理、经、文、法多学科协调发展的北京市属重点高校。
+            学校秉承“<strong>勤信</strong>”校训，致力于培养具有家国情怀和国际视野的高素质应用型人才。
+        </p>
+    </div>
+
+    <!-- ===== 基本信息 ===== -->
+    <div class="section">
+        <h2>📌 基本信息</h2>
+        <div class="info-grid">
+            <div class="info-item"><div class="label">创办时间</div><div class="value">1937年</div></div>
+            <div class="info-item"><div class="label">办学层次</div><div class="value">本科 · 硕士</div></div>
+            <div class="info-item"><div class="label">校址</div><div class="value">北京市海淀区 · 昌平区</div></div>
+            <div class="info-item"><div class="label">特色学科</div><div class="value">信息类 · 机电类 · 经管类</div></div>
+        </div>
+    </div>
+
+    <!-- ===== 学科特色 ===== -->
+    <div class="section">
+        <h2>⚙️ 学科特色</h2>
+        <ul>
+            <li><strong>信息与通信工程</strong> —— 北京市重点学科，在光通信、无线通信领域特色鲜明。</li>
+            <li><strong>控制科学与工程</strong> —— 聚焦智能控制、机器人技术，与产业紧密结合。</li>
+            <li><strong>计算机科学与技术</strong> —— 涵盖大数据、人工智能、网络安全等前沿方向。</li>
+            <li><strong>经济管理类</strong> —— 注重信息技术与管理的融合，培养数字化管理人才。</li>
+        </ul>
+    </div>
+
+    <!-- ===== 校园文化 ===== -->
+    <div class="section">
+        <h2>🎓 校园文化</h2>
+        <p>
+            学校注重学生全面发展，拥有丰富的学生社团和科技竞赛活动。品牌活动如 <strong>“信息科技文化节”</strong>、<strong>“挑战杯”</strong> 等，为学生提供了广阔的实践创新平台。
+            学校还与多所海外高校建立了交换生项目，积极推进国际化办学。
+        </p>
+    </div>
+
+    <!-- ===== 官方链接 ===== -->
+    <div class="section">
+        <h2>🔗 官方链接</h2>
+        <a href="https://www.bistu.edu.cn/" target="_blank" class="link-btn">访问学校官网 →</a>
+    </div>
+
+    <!-- ===== 页脚 ===== -->
+    <div class="footer">
+        © 2026 Unwind · 北京信息科技大学 · 开源课程实践
+    </div>
+
+</div>
+
+</body>
+</html>
