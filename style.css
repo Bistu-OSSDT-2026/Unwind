@@ -140,3 +140,77 @@ body.dark-mode .content-card {
 body.dark-mode .bar {
     background: linear-gradient(to top, #f093fb, #f5576c); /* 暗色模式下换成粉色渐变 */
 }
+/* ===== 新增毛玻璃和可视化样式 ===== */
+#mainContainer {
+    background-image: url('bistu-campus.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+}
+
+.content-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border-radius: 24px;
+    padding: 2.5rem 3rem;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+}
+
+.content-card h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+.content-card header p { font-size: 1.1rem; opacity: 0.9; }
+.content-card footer p { margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.8; }
+
+#visualizer-container {
+    margin: 1.5rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#clock {
+    font-size: 3.5rem;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    margin-bottom: 0.8rem;
+}
+
+#bars {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 4px;
+    height: 70px;
+    padding: 0 10px;
+}
+
+.bar {
+    width: 6px;
+    background: linear-gradient(to top, #00d2ff, #3a7bd5);
+    border-radius: 4px 4px 0 0;
+    height: 5px;
+    transition: height 0.05s;
+    box-shadow: 0 0 6px rgba(0, 210, 255, 0.4);
+}
+
+body.dark-mode .content-card {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .bar {
+    background: linear-gradient(to top, #f093fb, #f5576c);
+}
