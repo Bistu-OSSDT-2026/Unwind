@@ -25,9 +25,9 @@
     </div>
 
     <!-- ===== 主内容容器 ===== -->
-    <!-- 🔥 改动1：在 container 上添加背景图片内联样式 -->
+    <!-- 🔥 唯一改动：把 bistu-campus.jpg 换成你实际上传的学校图片文件名 -->
     <div class="container" style="
-        background-image: url('bistu-campus.jpg');
+        background-image: url('你上传的学校图片文件名.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -36,9 +36,14 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         color: white;
         text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     ">
         <header>
-            <!-- 🔥 改动2：标题和副标题换成学校介绍文字 -->
             <h1>🏛️ 欢迎访问我们的学校</h1>
             <p>北京信息科技大学 · 当前网页基于 GitHub-Pages 部署</p>
         </header>
